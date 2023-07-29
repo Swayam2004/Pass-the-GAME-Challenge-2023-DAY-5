@@ -14,6 +14,7 @@ public class Link : MonoBehaviour
 
     private bool connecting = true;
     private bool _isWidthDescreasing;
+    private bool _canPlayPlop = true;
 
     private AudioSource _linkAudioSource;
 
@@ -90,12 +91,20 @@ public class Link : MonoBehaviour
     {
         if (!connecting) return;
         this.linkable2 = linkable2;
+
+        if (_canPlayPlop)
+        {
+            SoundManager.Instance.PlayPlopSound(1f);
+            _canPlayPlop = false;
+        }
     }
 
     public void DisconnectLinkable2()
     {
         if (!connecting) return;
         linkable2 = null;
+
+        _canPlayPlop = true;
     }
 
 

@@ -10,12 +10,16 @@ public class Zone : MonoBehaviour
     [SerializeField] private float rotateSpeedIdle = 5f;
     [SerializeField] private float rotateSpeedActive = 20f;
     [SerializeField] private GameObject centerSprite;
+    [SerializeField] private AudioSource _zoneAudioSource;
 
     private float angle = 0f;
     private int planetCount = 0;
 
     void Start()
     {
+        _zoneAudioSource.volume = 0f;
+        _zoneAudioSource.Stop();
+
         RenderProgressBorder();
         RenderBorder(true);
         CircleCollider2D insideTrigger = gameObject.GetComponent<CircleCollider2D>();
@@ -28,6 +32,10 @@ public class Zone : MonoBehaviour
     private void GameLogic_OnWinTimerProgress(object sender, GameLogic.WinTimerProgressEventArgs e)
     {
         progressBorder.material.mainTextureOffset = new Vector2(e.progressNormalized, 0);
+
+        _zoneAudioSource.volume = 1f;
+        _zoneAudioSource.Play();
+
         SetProgress(e.progressNormalized);
     }
 
@@ -96,6 +104,8 @@ public class Zone : MonoBehaviour
         }
         centerSprite.transform.localScale = new Vector3(progress * radius * 2, progress * radius * 2, 0);
         progressBorder.material.mainTextureOffset = new Vector2(-progress, 0);
+
+        _zoneAudioSource.pitch = progress;
     }
 
     private void Update()
