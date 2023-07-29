@@ -18,7 +18,6 @@ public class MainMenu : MonoBehaviour
         Credits[1].SetActive(!Credits[1].activeSelf);
     }
 
-    // Update is called once per frame
     void Update()
     {
         LevelIndicator.text = m.ToString();
@@ -42,12 +41,12 @@ public class MainMenu : MonoBehaviour
     int m=1;
     public void StartGame()
     {
-        SceneManager.LoadScene("Level 1");
+        LevelManager.Instance.Load("Level 1");
     }
 
     public void PlayLevel()
     {
-        SceneManager.LoadScene("Level " + m);
+        LevelManager.Instance.Load("Level " + m);
     }
 
     public void QuitGame()

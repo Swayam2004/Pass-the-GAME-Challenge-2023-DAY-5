@@ -102,7 +102,9 @@ public class Zone : MonoBehaviour
             progressBorder.gameObject.SetActive(active);
             centerSprite.SetActive(active);
         }
-        centerSprite.transform.localScale = new Vector3(progress * radius * 2, progress * radius * 2, 0);
+        float centerCircleRadius = progress * radius * 2;
+        centerSprite.transform.localScale = new Vector3(centerCircleRadius, centerCircleRadius, 0);
+
         progressBorder.material.mainTextureOffset = new Vector2(-progress, 0);
 
         _zoneAudioSource.pitch = progress;

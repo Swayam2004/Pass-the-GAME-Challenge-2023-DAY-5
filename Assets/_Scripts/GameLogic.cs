@@ -69,18 +69,18 @@ public class GameLogic : MonoBehaviour {
             }
         }
         if(exists) {
-            SceneManager.LoadScene(name);
+            LevelManager.Instance.Load(name);
         } else {
-            SceneManager.LoadScene("GameOver");
+            LevelManager.Instance.Load("GameOver");
         }
     }
 
     public void RetryLevel() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        LevelManager.Instance.Load(SceneManager.GetActiveScene().name);
     }
 
     public void GoHome()
     {
-        SceneManager.LoadScene("MainMenu");
+        LevelManager.Instance.Load("MainMenu");
     }
 }

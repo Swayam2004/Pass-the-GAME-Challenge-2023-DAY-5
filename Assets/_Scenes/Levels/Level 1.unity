@@ -1563,6 +1563,18 @@ PrefabInstance:
       propertyPath: m_Positions.Array.data[94].z
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3369979702179114972, guid: b92f4fa05fe7054a794d235f20d5228e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3369979702179114972, guid: b92f4fa05fe7054a794d235f20d5228e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3369979702179114972, guid: b92f4fa05fe7054a794d235f20d5228e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 3735581603604827552, guid: b92f4fa05fe7054a794d235f20d5228e, type: 3}
       propertyPath: m_Name
       value: Zone
@@ -1625,7 +1637,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8867814852313446046, guid: b92f4fa05fe7054a794d235f20d5228e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1697,6 +1709,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1554920644925191475, guid: 339eb8e1faf2b85fcb84c35da43cc394, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2182349447687154999, guid: 339eb8e1faf2b85fcb84c35da43cc394, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1744,6 +1760,10 @@ PrefabInstance:
     - target: {fileID: 2617519188853265325, guid: 339eb8e1faf2b85fcb84c35da43cc394, type: 3}
       propertyPath: m_Name
       value: LevelCommon
+      objectReference: {fileID: 0}
+    - target: {fileID: 3991618606340816741, guid: 339eb8e1faf2b85fcb84c35da43cc394, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

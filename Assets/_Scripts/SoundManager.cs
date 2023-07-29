@@ -13,7 +13,7 @@ public class SoundManager : MonoBehaviour
     {
         if (Instance != null)
         {
-            Debug.LogError("There are more than one SoundManager");
+            //Debug.LogError("There are more than one SoundManager");
             Destroy(gameObject);
             return;
         }

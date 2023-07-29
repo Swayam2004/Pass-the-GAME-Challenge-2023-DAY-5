@@ -59,4 +59,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/GameOver.unity
     guid: 35a0bb8b1511f42cc847c5718fa58def
+  - enabled: 1
+    path: Assets/_Scenes/LoadingScene.unity
+    guid: e39e22736b5b24f47a81dec9a6fc7a48
   m_configObjects: {}
