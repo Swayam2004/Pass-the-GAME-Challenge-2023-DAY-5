@@ -107,6 +107,7 @@ public class Linkable : MonoBehaviour {
     private void LinkTo(Linkable other) {
         if(createdLink == null) return;
         if(!CanLinkTo(other)) return;
+
         createdLink.ConnectLinkable2(other);
         createdLink.ActivateConnection();
         links.Add(createdLink);

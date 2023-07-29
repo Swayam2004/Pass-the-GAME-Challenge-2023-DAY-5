@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,11 +9,18 @@ public class Link : MonoBehaviour
     private Linkable linkable2;
     private LineRenderer lineRenderer;
 
+    private float _lastWidth;
+    private float _width;
+
     private bool connecting = true;
+    private bool _isWidthDescreasing;
+
+    private AudioSource _linkAudioSource;
 
     public void Start()
     {
         lineRenderer = GetComponentInChildren<LineRenderer>();
+        _linkAudioSource = GetComponentInChildren<AudioSource>();
         lineRenderer.enabled = false;
     }
 
@@ -29,12 +34,30 @@ public class Link : MonoBehaviour
         {
             Vector3 fromPos = GetFromPosition();
             Vector3 toPos = GetToPosition();
+
             float dist = Vector3.Distance(fromPos, toPos);
-            float width = Mathf.Clamp(AREA / dist, 0, 1);
+
+            _width = Mathf.Clamp(AREA / dist, 0, 1);
+            if (_width < _lastWidth)
+            {
+                _isWidthDescreasing = true;
+            }
+            else
+            {
+                _isWidthDescreasing = false;
+            }
+            _lastWidth = _width;
+
             lineRenderer.SetPosition(0, fromPos);
             lineRenderer.SetPosition(1, toPos);
-            lineRenderer.startWidth = width / m;
-            lineRenderer.endWidth = width / n;
+            lineRenderer.startWidth = _width / m;
+            lineRenderer.endWidth = _width / n;
+
+        }
+
+        if (!_isWidthDescreasing)
+        {
+            _linkAudioSource.Play();
         }
     }
     float m = 1.3f, n = 2;
