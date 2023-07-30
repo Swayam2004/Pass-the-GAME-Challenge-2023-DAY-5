@@ -23,6 +23,9 @@ public class LevelManager : MonoBehaviour
     private Vector2 _startPos = new Vector3(-2600f, 0f, 0f);
     private Vector2 _endPos = new Vector3(2600f, 0f, 0f);
 
+    private float _transitionDuration = 0.25f;
+    private float _circleRadius = 1.4f;
+
     public static bool _isStorySeen = false;
 
     private void Awake()
@@ -53,15 +56,14 @@ public class LevelManager : MonoBehaviour
         // This single line fixes the bug with Scene Loading and DOTween
         yield return new WaitForSeconds(0.5f);
 
-        float transitionDuration = 0.5f;
-        float circleRadius = 0f;
-        _transitionMaterial.SetFloat("_Circle_Radius", circleRadius);
-        DOTween.To(() => circleRadius, x =>
+        _circleRadius = 0f;
+        _transitionMaterial.SetFloat("_Circle_Radius", _circleRadius);
+        DOTween.To(() => _circleRadius, x =>
         {
-            circleRadius = x;
-            _transitionMaterial.SetFloat("_Circle_Radius", circleRadius);
+            _circleRadius = x;
+            _transitionMaterial.SetFloat("_Circle_Radius", _circleRadius);
         },
-        1.5f, transitionDuration).SetEase(Ease.OutQuad).SetUpdate(true);
+        1.5f, _transitionDuration).SetEase(Ease.OutQuad).SetUpdate(true);
         //_transitionRectTransform.localPosition = Vector3.zero;
         //_transitionRectTransform.DOLocalMove(_endPos, transitionDuration).SetEase(Ease.OutQuad).SetUpdate(true);
     }
@@ -73,27 +75,17 @@ public class LevelManager : MonoBehaviour
             StartCoroutine(LoadSceneAsync(targetScene));
         };
 
-        float transitionDuration = 0.5f;
-        float circleRadius = 1.4f;
-        _transitionMaterial.SetFloat("_Circle_Radius", circleRadius);
-        DOTween.To(() => circleRadius, x =>
+        _circleRadius = 1.4f;
+        _transitionMaterial.SetFloat("_Circle_Radius", _circleRadius);
+        DOTween.To(() => _circleRadius, x =>
         {
-            circleRadius = x;
-            _transitionMaterial.SetFloat("_Circle_Radius", circleRadius);
+            _circleRadius = x;
+            _transitionMaterial.SetFloat("_Circle_Radius", _circleRadius);
         },
-        0f, transitionDuration).SetEase(Ease.OutQuad).SetUpdate(true).OnComplete(() =>
+        0f, _transitionDuration).SetEase(Ease.OutQuad).SetUpdate(true).OnComplete(() =>
         {
             SceneManager.LoadScene(Scene.LoadingScene.ToString());
         });
-    }
-    public void LoadWithoutAsync(string targetScene)
-    {
-        _onLoaderCallBack = () =>
-        {
-            SceneManager.LoadScene(targetScene);
-        };
-
-        SceneManager.LoadScene(Scene.LoadingScene.ToString());
     }
 
     private IEnumerator LoadSceneAsync(int targetSceneIndex)
@@ -110,15 +102,14 @@ public class LevelManager : MonoBehaviour
         // This single line fixes the bug with Scene Loading and DOTween
         yield return new WaitForSeconds(0.5f);
 
-        float transitionDuration = 0.5f;
-        float circleRadius = 0f;
-        _transitionMaterial.SetFloat("_Circle_Radius", circleRadius);
-        DOTween.To(() => circleRadius, x =>
+        _circleRadius = 0f;
+        _transitionMaterial.SetFloat("_Circle_Radius", _circleRadius);
+        DOTween.To(() => _circleRadius, x =>
         {
-            circleRadius = x;
-            _transitionMaterial.SetFloat("_Circle_Radius", circleRadius);
+            _circleRadius = x;
+            _transitionMaterial.SetFloat("_Circle_Radius", _circleRadius);
         },
-        1.5f, transitionDuration).SetEase(Ease.OutQuad).SetUpdate(true);
+        1.5f, _transitionDuration).SetEase(Ease.OutQuad).SetUpdate(true);
         //_transitionRectTransform.localPosition = Vector3.zero;
         //_transitionRectTransform.DOLocalMove(_endPos, transitionDuration).SetEase(Ease.OutQuad).SetUpdate(true);
     }
@@ -130,15 +121,14 @@ public class LevelManager : MonoBehaviour
             StartCoroutine(LoadSceneAsync(targetSceneIndex));
         };
 
-        float transitionDuration = 0.5f;
-        float circleRadius = 1.4f;
-        _transitionMaterial.SetFloat("_Circle_Radius", circleRadius);
-        DOTween.To(() => circleRadius, x =>
+        _circleRadius = 1.4f;
+        _transitionMaterial.SetFloat("_Circle_Radius", _circleRadius);
+        DOTween.To(() => _circleRadius, x =>
         {
-            circleRadius = x;
-            _transitionMaterial.SetFloat("_Circle_Radius", circleRadius);
+            _circleRadius = x;
+            _transitionMaterial.SetFloat("_Circle_Radius", _circleRadius);
         },
-        0f, transitionDuration).SetEase(Ease.OutQuad).SetUpdate(true).OnComplete(() =>
+        0f, _transitionDuration).SetEase(Ease.OutQuad).SetUpdate(true).OnComplete(() =>
         {
             SceneManager.LoadScene(Scene.LoadingScene.ToString());
         });

@@ -1,15 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using System;
 using System.Text.RegularExpressions;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
-public class GameLogic : MonoBehaviour {
-    public static GameLogic Instance { get; private set;}
+public class GameLogic : MonoBehaviour
+{
+    public static GameLogic Instance { get; private set; }
     public event EventHandler<WinTimerProgressEventArgs> OnWinTimerProgress;
-    public class WinTimerProgressEventArgs : EventArgs {
+    public class WinTimerProgressEventArgs : EventArgs
+    {
         public float progressNormalized;
     }
 
@@ -17,65 +17,93 @@ public class GameLogic : MonoBehaviour {
 
     private float winTimer = 0f;
     private int levelId;
+    private bool _canLoadScene = true;
 
-    void Awake() {
-        if(Instance != null) {
+    void Awake()
+    {
+        if (Instance != null)
+        {
             Debug.LogError("More than one GameLogic in scene!");
         }
         Instance = this;
         Scene currentScene = SceneManager.GetActiveScene();
-        try {
+        try
+        {
             levelId = Int32.Parse(Regex.Replace(currentScene.name, "[^0-9]", ""));
-        } catch {
+        }
+        catch
+        {
             Debug.LogError("Could not parse level id from scene name: " + currentScene.name);
         }
     }
 
-    void Update() {
+    void Update()
+    {
         bool allSaved = true;
-        foreach(Planet planet in FindObjectsOfType<Planet>()) {
-            if(!planet.IsSaved()) {
+        foreach (Planet planet in FindObjectsOfType<Planet>())
+        {
+            if (!planet.IsSaved())
+            {
                 allSaved = false;
                 break;
             }
         }
-        if(allSaved) {
+        if (allSaved)
+        {
             SetWinTimer(winTimer + Time.deltaTime);
-            if(winTimer >= winTimerMax) {
+            if (winTimer >= winTimerMax)
+            {
                 LoadNextLevel();
             }
-        } else {
+        }
+        else
+        {
             SetWinTimer(0f);
         }
     }
 
-    private void SetWinTimer(float value) {
+    private void SetWinTimer(float value)
+    {
         winTimer = value;
         OnWinTimerProgress?.Invoke(this, new WinTimerProgressEventArgs { progressNormalized = value / winTimerMax });
     }
 
-    private void LoadNextLevel() {
+    private void LoadNextLevel()
+    {
         string name = "Level " + (levelId + 1);
         bool exists = false;
-        for (int i = 0; true; i++) {
+        for (int i = 0; true; i++)
+        {
             var s = SceneUtility.GetScenePathByBuildIndex(i);
-            if (s.Length <= 0) {
+            if (s.Length <= 0)
+            {
                 break;
-            } else {
-                if (s.Contains(name)) {
+            }
+            else
+            {
+                if (s.Contains(name))
+                {
                     exists = true;
                     break;
                 }
             }
         }
-        if(exists) {
-            LevelManager.Instance.LoadWithoutAsync(name);
-        } else {
-            LevelManager.Instance.LoadWithoutAsync("GameOver");
+        if (_canLoadScene)
+        {
+            if (exists)
+            {
+                LevelManager.Instance.Load(name);
+            }
+            else
+            {
+                LevelManager.Instance.Load("GameOver");
+            }
+            _canLoadScene = false;
         }
     }
 
-    public void RetryLevel() {
+    public void RetryLevel()
+    {
         LevelManager.Instance.Load(SceneManager.GetActiveScene().name);
     }
 
