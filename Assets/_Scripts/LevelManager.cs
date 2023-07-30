@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -46,7 +45,7 @@ public class LevelManager : MonoBehaviour
 
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(targetScene);
 
-        if(!asyncOperation.isDone)
+        if (!asyncOperation.isDone)
         {
             yield return null;
         }
@@ -57,11 +56,11 @@ public class LevelManager : MonoBehaviour
         float transitionDuration = 0.5f;
         float circleRadius = 0f;
         _transitionMaterial.SetFloat("_Circle_Radius", circleRadius);
-        DOTween.To(() => circleRadius, x => 
+        DOTween.To(() => circleRadius, x =>
         {
             circleRadius = x;
             _transitionMaterial.SetFloat("_Circle_Radius", circleRadius);
-        }, 
+        },
         1.5f, transitionDuration).SetEase(Ease.OutQuad).SetUpdate(true);
         //_transitionRectTransform.localPosition = Vector3.zero;
         //_transitionRectTransform.DOLocalMove(_endPos, transitionDuration).SetEase(Ease.OutQuad).SetUpdate(true);
@@ -86,6 +85,15 @@ public class LevelManager : MonoBehaviour
         {
             SceneManager.LoadScene(Scene.LoadingScene.ToString());
         });
+    }
+    public void LoadWithoutAsync(string targetScene)
+    {
+        _onLoaderCallBack = () =>
+        {
+            SceneManager.LoadScene(targetScene);
+        };
+
+        SceneManager.LoadScene(Scene.LoadingScene.ToString());
     }
 
     private IEnumerator LoadSceneAsync(int targetSceneIndex)

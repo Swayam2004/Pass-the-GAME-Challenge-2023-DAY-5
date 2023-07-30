@@ -69,9 +69,9 @@ public class GameLogic : MonoBehaviour {
             }
         }
         if(exists) {
-            LevelManager.Instance.Load(name);
+            LevelManager.Instance.LoadWithoutAsync(name);
         } else {
-            LevelManager.Instance.Load("GameOver");
+            LevelManager.Instance.LoadWithoutAsync("GameOver");
         }
     }
 
